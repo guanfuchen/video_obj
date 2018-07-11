@@ -9,6 +9,31 @@
 
 - [ImageNet Object Detection from Video Challenge](https://www.kaggle.com/c/imagenet-object-detection-from-video-challenge) kaggle上的一个ImageNet基于视频的目标检测比赛，可以作为初始数据集测试相应的算法。
 - [Optimizing Video Object Detection via a Scale-Time Lattice](https://arxiv.org/pdf/1804.05472.pdf) 推荐阅读的一篇相关论文。
+- [FlowNet: Learning Optical Flow with Convolutional Networks](https://arxiv.org/abs/1504.06852) 这篇文章介绍了使用CNN来计算光流的模型。
+- [Video Object Detection](https://github.com/handong1587/handong1587.github.io/blob/master/_posts/deep_learning/2015-10-09-object-detection.md#video-object-detection) handong1587对视频目标检测相关论文的收集。
+- Learning Object Class Detectors from Weakly Annotated Video
+- Analysing domain shift factors between videos and images for object detection
+- T-CNN: Tubelets with Convolutional Neural Networks for Object Detection from Videos
+- Object Detection from Video Tubelets with Convolutional Neural Networks
+- Object Detection in Videos with Tubelets and Multi-context Cues
+- Context Matters: Refining Object Detection in Video with Recurrent Neural Networks
+- Object Detection in Videos with Tubelet Proposal Networks
+- CNN Based Object Detection in Large Video Images幻灯片
+- Flow-Guided Feature Aggregation for Video Object Detection
+- Object Detection in Video using Faster R-CNN
+- Impression Network for Video Object Detection
+- Towards High Performance Video Object Detection for Mobiles
+- Temporal Dynamic Graph LSTM for Action-driven Video Object Detection
+- Mobile Video Object Detection with Temporally-Aware Feature Maps
+- Towards High Performance Video Object Detection
+- Object Detection with an Aligned Spatial-Temporal Memory
+- 3D-DETNet: a Single Stage Video-Based Vehicle Detector
+- Improving Context Modeling for Video Object Detection and Tracking VID挑战PPT。
+- Semantic Video CNNs through Representation Warping
+- Clockwork Convnets for Video Semantic Segmentation
+- Slow Feature Analysis_ Unsupervised Learning of Invariances慢特征分析，主要基于连续的视频关键帧特征具有极大的相似性这个特点提取信息。
+- Deep Learning of Invariant Features via Simulated Fixations in Video
+- Slow and steady feature analysis: higher order temporal coherence in video
 
 
 ---
@@ -54,5 +79,11 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 - [读书笔记Deep Feature Flow for Video Recognition](https://zhuanlan.zhihu.com/p/27213979)
 - [视频检测分割--Deep Feature Flow for Video Recognition](https://blog.csdn.net/zhangjunhit/article/details/76665253)
+- [视频物体检测文献阅读笔记](https://blog.csdn.net/Wayne2019/article/details/78927733)
+
+---
+## FlowNet: Learning Optical Flow with Convolutional Networks
+
+使用卷积网络学习光流估计。
 
 

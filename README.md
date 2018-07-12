@@ -108,6 +108,11 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
 
+
+# flow
+
+增加和video_obj并行的光流论文研究。
+
 ---
 ## FlowNet: Learning Optical Flow with Convolutional Networks
 
@@ -117,5 +122,11 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 - [flownet2-pytorch](https://github.com/NVIDIA/flownet2-pytorch)实现了flownet2。
 - [FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch)参考该实现，对FlowNet网络结构进行相应的了解。
+- [论文笔记：FlowNet](https://calmdownandcarryon.github.io/2017/09/08/paper-reading/iccv_flownet/)
+- [CNN光流计算--FlowNet: Learning Optical Flow with Convolutional Networks](https://blog.csdn.net/zhangjunhit/article/details/76262429)
 
+---
+## Unsupervised Learning of Depth and Ego-Motion from Video
+
+[Unsupervised Learning of Depth and Ego-Motion from Videox项目主页](https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/)
 

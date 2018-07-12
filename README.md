@@ -5,6 +5,26 @@
 对相应的视频目标检测论文整理实现综述文档。
 
 ---
+## 数据集
+
+### ILSVRC2015: Object detection from video (VID)
+
+
+
+### YouTube-Objects dataset v2.2
+
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/Screen_Shot_2018-07-11_16.35.20.png)
+
+YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Challenge的10个对象类别的名称。每个对象包含9到24个视频。每个视频的持续时间在30秒到3分钟之间变化。视频被弱标注，即我们确保每个视频包含相应类的至少一个对象。该数据集包括aeroplane、bird、boat、car、cat、cow、dog、horse、motorbike和train这10个类别，具体可在网页上查看[YouTube-Objects v2.3 Preview](YouTube-Objects v2.3 Preview)。
+
+[YouTube-Objects dataset v2.3](http://calvin.inf.ed.ac.uk/datasets/youtube-objects-dataset/) yto目标检测数据集主页。
+
+[yto-dataset](https://github.com/vkalogeiton/yto-dataset) yto数据集下载和使用说明。
+
+- Learning Object Class Detectors from Weakly Annotated Video
+- Analysing domain shift factors between videos and images for object detection
+
+---
 ## 相关资料
 
 - [ImageNet Object Detection from Video Challenge](https://www.kaggle.com/c/imagenet-object-detection-from-video-challenge) kaggle上的一个ImageNet基于视频的目标检测比赛，可以作为初始数据集测试相应的算法。
@@ -34,6 +54,7 @@
 - Slow Feature Analysis_ Unsupervised Learning of Invariances慢特征分析，主要基于连续的视频关键帧特征具有极大的相似性这个特点提取信息。
 - Deep Learning of Invariant Features via Simulated Fixations in Video
 - Slow and steady feature analysis: higher order temporal coherence in video
+- Seq-NMS for Video Object Detection将传统的基于still image的区域建议NMS方法扩展到视频序列的NMS方法。
 
 
 ---
@@ -75,6 +96,7 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 ![](D:/GitHub/Quick/实习工作/imgs/dff_illustration.png)
 
+
 ### 参考资料
 
 - [读书笔记Deep Feature Flow for Video Recognition](https://zhuanlan.zhihu.com/p/27213979)
@@ -82,8 +104,18 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 - [视频物体检测文献阅读笔记](https://blog.csdn.net/Wayne2019/article/details/78927733)
 
 ---
+## Object detection in videos with tubelet proposal networks
+
+参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
+
+---
 ## FlowNet: Learning Optical Flow with Convolutional Networks
 
 使用卷积网络学习光流估计。
+
+### 参考资料
+
+- [flownet2-pytorch](https://github.com/NVIDIA/flownet2-pytorch)实现了flownet2。
+- [FlowNetPytorch](https://github.com/ClementPinard/FlowNetPytorch)参考该实现，对FlowNet网络结构进行相应的了解。
 
 

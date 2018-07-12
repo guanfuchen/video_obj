@@ -55,6 +55,7 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - Deep Learning of Invariant Features via Simulated Fixations in Video
 - Slow and steady feature analysis: higher order temporal coherence in video
 - Seq-NMS for Video Object Detection将传统的基于still image的区域建议NMS方法扩展到视频序列的NMS方法。
+- The Recognition of Human Movement Using Temporal Templates，论文提出了Motion History Image（MHI）作为运动表示，该表示计算高效，对于基于光流的方法来说可以作为其替代来弥补光流计算量大的问题 TODO。
 
 
 ---
@@ -63,6 +64,12 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 目标定位和联合定位和VID任务似乎有着相似的topic，但是这两个问题有着本质的区别。（1）目标：目标定位或者联合定位问题假设每一个视频仅仅包含一个已知或者未知的类别，并且仅仅要求定位下一帧目标的一个物体。在VID任务中，每一个视频帧包含了未知数量的实例或者类别。VID任务更接近与真实应用。（2）评估指标：定位的评估指标通常被用来评估定位的精度，也就是在VID任务中使用的mAP。
 
 本文主要使用了时空tubelet建议模块组合了静止图像的目标检测和通用的目标跟踪。因此该模块同时具有目标检测器的识别能力和目标跟踪器的时间一致性能力。该模块主要有三步：（1）图像目标建议，（2）目标建议打分和（3）高置信度目标跟踪。
+
+
+---
+## Object detection in videos with tubelet proposal networks
+
+...
 
 ---
 ## Optimizing Video Object Detection via a Scale-Time Lattice
@@ -107,6 +114,26 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 ## Object detection in videos with tubelet proposal networks
 
 参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
+
+---
+## Optimizing Video Object Detection via a Scale-Time Lattice
+
+- [scale-time-lattice相关代码](https://github.com/hellock/scale-time-lattice)
+
+网络结构如下所示，其中小红点表示在关键帧的检测，方格点表示尺度-时间格子，也就是空间-时间格子的结果，其中黑色虚线表示直接映射或者缩放，蓝色实线表示在空间上的传播，蓝色实线表示在空间上的微调，图中水平方向的操作是在时间上的传播，垂直方向的操作是在空间上的细化，其中PRU表示Propagation and Refinement Unit，即传播细化单元，这个基本结构是构成格子的主要组件，用来完成时间传播和空间细化：
+
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/Screen_Shot_2018-07-12_23.08.31.png)
+
+PRU将两个连续的关键帧的检测结果作为输入，然后传播到参考帧中国年，并且通过细化输出到下一空间尺度。
+
+### 参考资料
+
+- [Optimizing Video Object Detection via a Scale-Time Lattice](https://amds123.github.io/2018/04/16/Optimizing-Video-Object-Detection-via-a-Scale-Time-Lattice/) 中文摘要。
+
+---
+## Flow-guided feature aggregation for video object detection
+
+和deep feature flow的思路相似，通过光流的方法增强视频目标检测。
 
 
 # flow

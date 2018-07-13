@@ -8,7 +8,14 @@
 ## 数据集
 
 ### ILSVRC2015: Object detection from video (VID)
+ImageNet VID challenges，这是在kaggle上的关于ImageNet上基于视频的目标检测挑战，目的是为了识别和标记视频中的普通目标。
 
+该数据集文件如下
+- imagenet_object_detection_video_train.tar.gz包含了训练集和校准集的图像数据和GT。
+- imagenet_object_detection_video_test.tar.gz包含了测试机的图像数据。
+  - 其中图像标注格式都是基于PASCAL VOC数据集格式的XML文件（可以使用PASCAL开发工具套件来解析标注）。
+  - 每一个视频都是以JPEG格式存储，代表不同帧。
+  - ImageSet文件夹包含了定义了主要的检测任务的图像列表。例如，文件夹ILSVRC2015_VID_train_0000/ILSVRC2015_train_00025030表示一个视频，其中该文件夹中的000000.JPEG文件表示第一帧，并且000000.xml表示该帧的标注。
 
 
 ### YouTube-Objects dataset v2.2
@@ -23,6 +30,10 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 
 - Learning Object Class Detectors from Weakly Annotated Video
 - Analysing domain shift factors between videos and images for object detection
+
+### YouTube-BoundingBoxes: A Large High-Precision Human-Annotated Data Set for Object Detection in Video
+
+该数据集中包含单个目标。
 
 ---
 ## 相关资料
@@ -56,7 +67,48 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - Slow and steady feature analysis: higher order temporal coherence in video
 - Seq-NMS for Video Object Detection将传统的基于still image的区域建议NMS方法扩展到视频序列的NMS方法。
 - The Recognition of Human Movement Using Temporal Templates，论文提出了Motion History Image（MHI）作为运动表示，该表示计算高效，对于基于光流的方法来说可以作为其替代来弥补光流计算量大的问题 TODO。
+- Detect to Track and Track to Detect
 
+
+---
+## YouTube-BoundingBoxes: A Large High-Precision Human-Annotated Data Set for Object Detection in Video
+
+YouTube-BoundingBoxes：用于视频中对象检测的大型高精度人体注释数据集，下载地址[youtube-bb](https://research.google.com/youtube-bb/)，浏览地址[BoundingBoxes](https://research.google.com/youtube-bb/explore.html)。该数据集包含大约38,000个约19秒长的视频片段，自动选择自然设置中的特征对象而无需编辑或后处理，其录制质量通常类似于手持式手机相机。
+
+本文中的相关工作介绍了视频目标检测领域的数据集和静态图像的目标检测领域的数据集，包括VOT、MOT等等。
+
+数据集预览界面如下所示：
+
+![](./imgs/ytbb_vis.png)
+
+数据集包含如下四个CSV文件:
+- 视屏segments中的分类 - 训练集 (27Mb gzip压缩文件)
+- 视屏segments中的分类 - 校准集 (3.4Mb gzip压缩文件)
+- 视屏segments中的检测 - 训练集 (57Mb gzip压缩文件)
+- 视屏segments中的检测 - 校准集 (6.3Mb gzip压缩文件)
+
+在检测CSV文件中，每一行表示一帧并且每一列如下所示：
+- youtube_id 分割被提取的视屏的YouTube分类号，组合网址http://youtube/%{youtube_id}跟踪到选择的视屏
+- timestamp_ms 视频中检测帧的时间ms
+- class_id 目标类别的数值标注
+- class_name 人类可读的目标类别名
+- object_presence 目标是否在当前帧中
+- xmin [0.0, 1.0]boundingx box最左边相对于帧大小的位置
+- xmax [0.0, 1.0]boundingx box最右边相对于帧大小的位置
+- ymin [0.0, 1.0]boundingx box最上边相对于帧大小的位置
+- ymax [0.0, 1.0]boundingx box最下边相对于帧大小的位置
+
+如下所示：
+
+```
+AAB6lO-XiKE	238000	0	person	0	present	0.482	0.54	0.37166667	0.6166667
+AAB6lO-XiKE	239000	0	person	0	present	0.514	0.588	0.36333334	0.6066667
+AAB6lO-XiKE	240000	0	person	0	present	0.534	0.614	0.44333333	0.685
+AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
+```
+
+
+每一个视频分割片段中最多只有一个目标被跟踪，但是同一个视频中能够有多个分割，也就是说youtube_id可能有多个分割，但是youtube_id和class_id组合就只有唯一的跟踪。
 
 ---
 ## Object Detection from Video Tubelets with Convolutional Neural Networks
@@ -65,6 +117,11 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 
 本文主要使用了时空tubelet建议模块组合了静止图像的目标检测和通用的目标跟踪。因此该模块同时具有目标检测器的识别能力和目标跟踪器的时间一致性能力。该模块主要有三步：（1）图像目标建议，（2）目标建议打分和（3）高置信度目标跟踪。
 
+
+---
+## T-CNN: Tubelets with Convolutional Neural Networks for Object Detection from Videos
+
+使用两个多阶段更快的R-CNN [31]检测框架，上下文抑制，多尺度训练/测试，ConvNet跟踪器[39]，基于光流的分数传播 和模特合奏。
 
 ---
 ## Object detection in videos with tubelet proposal networks
@@ -82,6 +139,25 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 
 Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale-Time Lattice中有向连接的不同节点。 从这个统一的观点来看，可以很容易看出不同的步骤如何贡献以及如何计算成本分配。
 
+文中实验结果比较了常用的在VID数据集上实验的方法，其中包括DFF、TPN+LSTM、FGFA和D&T，以及本文提出的scale-time lattice方法，具体比较结果如下图所示：
+
+![](./imgs/vid_dataset_solution_results.png)
+
+另外不同于DFF使用光流来传播关键帧的稠密特征，本文主要使用MHI来编码运动信息来传播帧间运动特征，下图比较了在不同间隔的关键帧下的不同传播方法的精度，左图是整体精度比较，右图是基于不同的目标运动的检测精度比较，其中比较主要包括Interpolation、RGB差值和MHI这三种方法，另外从右图中可以看出使用MHI方法精度提升的主要目标位快速运动的目标。
+
+![](./imgs/propagation_result.png)
+
+---
+## Detect to Track and Track to Detect
+
+相关代码[Detect-Track](https://github.com/feichtenhofer/Detect-Track)和[py-Detect-Track代码python](https://github.com/feichtenhofer/py-Detect-Track)
+
+文章指出：在视频中的对象检测和跟踪的情况下，最近的方法主要使用检测作为第一步，接着是后处理方法，诸如应用跟踪器以随时间传播检测分数。 “检测跟踪”范式的这种变化已经取得了令人瞩目的进展，但却受到帧级检测方法的支配。
+
+视频中的对象检测最近引起了人们的兴趣，尤其是在引入ImageNet视频对象检测挑战（VID）之后。 与ImageNet对象检测（DET）挑战不同，VID在图像序列中显示对象，并带来额外的挑战：（i）大小：视频提供的帧数（VID大约有130万图像，而DET大约有400K） COCO大约有100K），（ii）运动模糊：由于快速的相机或物体运动，（iii）质量：互联网视频剪辑的质量通常低于静态照片，（iv）部分遮挡：由于 物体/观察者定位，以及（v）姿势：在视频中经常看到非常规的物体到相机姿势。 在下图中，我们显示了来自VID数据集的示例图像。
+
+![](./imgs/vid_samples.png)
+
 ---
 ## Deep Feature Flow for Video Recognition
 
@@ -97,11 +173,11 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 本文提出的方法示意图如下所示，其中第一列为关键帧的原图，网络结构183和289输出的卷积特征，第二列为当前帧的原图，网络结构183和289输出的卷积特征，第三列为当前帧的光流估计和通过计算的传播的特征map，可以看出通过使用关键帧的卷及特征和光流的传播的特征map和当前帧直接在网络的输出几乎相同。
 
-![](D:/GitHub/Quick/实习工作/imgs/dff_result.png)
+![](./imgs/dff_result.png)
 
 本文提出的网络处理过程和每一帧的网络框架区别如下所示，其中每一帧网络per-frame network处理每一帧，并且每一帧都会输入特征提取网络提取特征，同时将提取的特征输入到识别任务中输出最后的任务结果，而本文提出的DFF深度特征光流网络DFF网络仅仅对关键帧提取特征，然后当前帧（非关键帧，即两个关键帧之间的frame）和关键帧输入到光流估计函数F中，将关键帧提取的特征和光流估计结果输入至传播函数propagation中，然后输入到输出task任务中得到当前帧的任务结果。
 
-![](D:/GitHub/Quick/实习工作/imgs/dff_illustration.png)
+![](./imgs/dff_illustration.png)
 
 
 ### 参考资料
@@ -157,3 +233,11 @@ PRU将两个连续的关键帧的检测结果作为输入，然后传播到参�
 
 [Unsupervised Learning of Depth and Ego-Motion from Videox项目主页](https://people.eecs.berkeley.edu/~tinghuiz/projects/SfMLearner/)
 
+---
+# GPU
+
+NVIDIA® Tesla® P100 GPU 加速器为现代数据中心释放强大的计算能力。它利用全新的 NVIDIA Pascal™ 架构打造出速度极快的计算节点，性能高于数百个速度较慢的通用计算节点。利用更少的快速的节点获得更高的性能，能在节省资金的同时，大幅提高数据中心吞吐量。
+
+## 参考资料
+
+- [NVIDIA® TESLA® P100](https://www.nvidia.cn/object/tesla-p100-cn.html)

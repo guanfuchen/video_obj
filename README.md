@@ -68,6 +68,7 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - Seq-NMS for Video Object Detection将传统的基于still image的区域建议NMS方法扩展到视频序列的NMS方法。
 - The Recognition of Human Movement Using Temporal Templates，论文提出了Motion History Image（MHI）作为运动表示，该表示计算高效，对于基于光流的方法来说可以作为其替代来弥补光流计算量大的问题 TODO。
 - Detect to Track and Track to Detect
+- github上另外有收集视频检测相关的文章[Video-Detection](https://github.com/jiangzhengkai/Video-Detection)
 
 
 ---
@@ -161,6 +162,8 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 ---
 ## Deep Feature Flow for Video Recognition
 
+参考代码[Deep-Feature-Flow](https://github.com/msracver/Deep-Feature-Flow)
+
 现代的CNN网络架构共享相同的结构。大部分网络层是卷积并且因此导致了最大的计算代价。中间的卷积特征map和输入图像有着相似的空间extent（通常更小的分辨率，比如小16X）。它们在low level的图像内容和中高级语义概念保持了空间的对应性。这种对应性能够提供使用空间warping（和光流法相似）将邻近帧的特征轻量传播的用处。
 
 在这项工作中，我们提出了深入的特征流，快速和准确的视频识别方法。 它应用了一个图像稀疏关键帧上的识别网络。 它传播深度特征从关键帧映射到其他帧流场。 如图1中所示，两个中间体特征地图响应“汽车”和“人”概念。它们在附近的两个框架上相似。 传播后，传播的特征与原始特征类似。
@@ -187,6 +190,31 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 - [视频物体检测文献阅读笔记](https://blog.csdn.net/Wayne2019/article/details/78927733)
 
 ---
+## Flow-guided feature aggregation for video object detection
+
+和deep feature flow的思路相似，通过光流的方法增强视频目标检测，[相关代码](https://github.com/msracver/Flow-Guided-Feature-Aggregation)。FGFA基于光流的多帧特征聚合。
+
+---
+## Towards High Performance Video Object Detection
+
+| 会议／期刊 | 作者 | 论文 |
+| ---- | ---- | ---- |
+| CVPR2018 | Xizhou Zhu, Jifeng Dai, Lu Yuan, Yichen Wei. | Towards High Performance Video Object Detection |
+ 
+
+本文和Flow-guided feature aggregation for video object detection以及DFF架构都是同一作者的三篇文章，可以追踪着一起看。
+
+---
+## Towards High Performance Video Object Detection for Mobiles
+
+这篇文章基本结构采用了和DFF这类基于光流传播相似的结构，但是探索了如何降低计算代价使得能够适用于移动设备中。作者[Jifeng Dai代季峰](http://www.jifengdai.org/)，这个系列的结构基本都是微软亚研院代季峰实验室的研究成果。
+
+### 参考资料
+
+- [光流在视频检测和分割的再应用](https://blog.csdn.net/u013010889/article/details/80072917)
+- [Towards High Performance Video Object Detection for Mobiles论文笔记](https://zhuanlan.zhihu.com/p/37634009)
+
+---
 ## Object detection in videos with tubelet proposal networks
 
 参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
@@ -206,10 +234,7 @@ PRU将两个连续的关键帧的检测结果作为输入，然后传播到参�
 
 - [Optimizing Video Object Detection via a Scale-Time Lattice](https://amds123.github.io/2018/04/16/Optimizing-Video-Object-Detection-via-a-Scale-Time-Lattice/) 中文摘要。
 
----
-## Flow-guided feature aggregation for video object detection
 
-和deep feature flow的思路相似，通过光流的方法增强视频目标检测。
 
 
 # flow

@@ -114,20 +114,47 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 ---
 ## Object Detection from Video Tubelets with Convolutional Neural Networks
 
+| 会议／期刊 | 作者 | 论文 |
+| ---- | ---- | ---- |
+| CVPR 2016 | Kang, Kai and Ouyang, Wanli and Li, Hongsheng and Wang, Xiaogang | Object Detection from Video Tubelets with Convolutional Neural Networks |
+
 目标定位和联合定位和VID任务似乎有着相似的topic，但是这两个问题有着本质的区别。（1）目标：目标定位或者联合定位问题假设每一个视频仅仅包含一个已知或者未知的类别，并且仅仅要求定位下一帧目标的一个物体。在VID任务中，每一个视频帧包含了未知数量的实例或者类别。VID任务更接近与真实应用。（2）评估指标：定位的评估指标通常被用来评估定位的精度，也就是在VID任务中使用的mAP。
 
 本文主要使用了时空tubelet建议模块组合了静止图像的目标检测和通用的目标跟踪。因此该模块同时具有目标检测器的识别能力和目标跟踪器的时间一致性能力。该模块主要有三步：（1）图像目标建议，（2）目标建议打分和（3）高置信度目标跟踪。
 
+### 参考资料
+
+- [vdetlib代码](https://github.com/myfavouritekk/vdetlib)
 
 ---
 ## T-CNN: Tubelets with Convolutional Neural Networks for Object Detection from Videos
 
-使用两个多阶段更快的R-CNN [31]检测框架，上下文抑制，多尺度训练/测试，ConvNet跟踪器[39]，基于光流的分数传播 和模特合奏。
+| 会议／期刊 | 作者 | 论文 |
+| ---- | ---- | ---- |
+| arXiv preprint 2016 | Kang, Kai and Li, Hongsheng and Yan, Junjie and Zeng, Xingyu and Yang, Bin and Xiao, Tong and Zhang, Cong and Wang, Zhe and Wang, Ruohui and Wang, Xiaogang and Ouyang, Wanli | T-CNN: Tubelets with Convolutional Neural Networks for Object Detection from Videos |
+
+这篇文章的作者团队是香港中文大学xiaogang团队，发表的多篇视频目标检测文章都是基于Video Tubelets的目标检测，其中包括Object Detection from Video Tubelets with Convolutional Neural Networks，在CVPR 2017上有对video object detection任务以及工作的介绍，链接为[Deep Learning for Object Detection in Videos, by Xiaogang Wang](https://youtu.be/pK6XAk95kUY?t=2173)。
+
+使用两个多阶段更快的R-CNN 检测框架，上下文抑制，多尺度训练/测试，ConvNet跟踪器，基于光流的分数传播和模型组合。
+
+### 参考资料
+
+- [视频目标检测 - Object Detection from Video Tubelets with Convolutional Neural Networks](http://www.voidcn.com/article/p-auswovso-nh.html)
 
 ---
 ## Object detection in videos with tubelet proposal networks
 
-...
+| 会议／期刊 | 作者 | 论文 |
+| ---- | ---- | ---- |
+| CVPR 2017 | Kang, Kai and Li, Hongsheng and Xiao, Tong and Ouyang, Wanli and Yan, Junjie and Liu, Xihui and Wang, Xiaogang | Object detection in videos with tubelet proposal networks |
+
+tubelet proposal networks系列。
+
+### 参考资料
+
+- [TPN代码](https://github.com/myfavouritekk/TPN)
+- [CuVideo - Object Detection in Videos with TubeLets and Multi Context Cues](https://www.youtube.com/watch?v=XuR-Kabh1AY&feature=youtu.be) workshop讲座。
+- [Kai Kang](http://kangk.ai/) 作者主页。
 
 ---
 ## Optimizing Video Object Detection via a Scale-Time Lattice

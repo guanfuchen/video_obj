@@ -69,6 +69,23 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - The Recognition of Human Movement Using Temporal Templates，论文提出了Motion History Image（MHI）作为运动表示，该表示计算高效，对于基于光流的方法来说可以作为其替代来弥补光流计算量大的问题 TODO。
 - Detect to Track and Track to Detect
 - github上另外有收集视频检测相关的文章[Video-Detection](https://github.com/jiangzhengkai/Video-Detection)
+- [ImageAI : Video Object Detection, Tracking and Analysis](https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/VIDEO.md) ImageAI上关于视频目标检测的教程。
+
+---
+## 目标检测
+- [cascade-rcnn](https://github.com/zhaoweicai/cascade-rcnn)
+- [faster-rcnn.pytorch](https://github.com/jwyang/faster-rcnn.pytorch)
+- [mAP](https://github.com/Cartucho/mAP) mean AP python版本，对于理解object detection的评估有帮助。
+
+### mAP
+
+- [mAP（mean average precision）](https://blog.csdn.net/chenyanqiao2010/article/details/50114799)
+- [Object-Detection-Metrics](https://github.com/rafaelpadilla/Object-Detection-Metrics) 常见的目标检测评估指标。
+- [Evaluation of ranked retrieval results](https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-ranked-retrieval-results-1.html)
+- [The PASCAL Visual Object Classes Challenge 2012 (VOC2012) Development Kit](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/htmldoc/devkit_doc.html#SECTION00050000000000000000)
+- [COCO Detection Challenge](https://competitions.codalab.org/competitions/5181)
+- [Measuring Object Detection models - mAP - What is Mean Average Precision?](http://tarangshah.com/blog/2018-01-27/what-is-map-understanding-the-statistic-of-choice-for-comparing-object-detection-models/) 较好地计算了目标检测中的评价模型。
+- [Intersection over Union (IoU) for object detection](https://www.pyimagesearch.com/2016/11/07/intersection-over-union-iou-for-object-detection/) pyimagesearch中IOU目标检测的相关定义。
 
 
 ---
@@ -80,7 +97,9 @@ YouTube-BoundingBoxes：用于视频中对象检测的大型高精度人体注�
 
 数据集预览界面如下所示：
 
+<!--
 ![](./imgs/ytbb_vis.png)
+-->
 
 数据集包含如下四个CSV文件:
 - 视屏segments中的分类 - 训练集 (27Mb gzip压缩文件)
@@ -169,11 +188,15 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 文中实验结果比较了常用的在VID数据集上实验的方法，其中包括DFF、TPN+LSTM、FGFA和D&T，以及本文提出的scale-time lattice方法，具体比较结果如下图所示：
 
+<!--
 ![](./imgs/vid_dataset_solution_results.png)
+-->
 
 另外不同于DFF使用光流来传播关键帧的稠密特征，本文主要使用MHI来编码运动信息来传播帧间运动特征，下图比较了在不同间隔的关键帧下的不同传播方法的精度，左图是整体精度比较，右图是基于不同的目标运动的检测精度比较，其中比较主要包括Interpolation、RGB差值和MHI这三种方法，另外从右图中可以看出使用MHI方法精度提升的主要目标位快速运动的目标。
 
+<!--
 ![](./imgs/propagation_result.png)
+-->
 
 ---
 ## Detect to Track and Track to Detect
@@ -184,7 +207,9 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 视频中的对象检测最近引起了人们的兴趣，尤其是在引入ImageNet视频对象检测挑战（VID）之后。 与ImageNet对象检测（DET）挑战不同，VID在图像序列中显示对象，并带来额外的挑战：（i）大小：视频提供的帧数（VID大约有130万图像，而DET大约有400K） COCO大约有100K），（ii）运动模糊：由于快速的相机或物体运动，（iii）质量：互联网视频剪辑的质量通常低于静态照片，（iv）部分遮挡：由于 物体/观察者定位，以及（v）姿势：在视频中经常看到非常规的物体到相机姿势。 在下图中，我们显示了来自VID数据集的示例图像。
 
+<!--
 ![](./imgs/vid_samples.png)
+-->
 
 ---
 ## Deep Feature Flow for Video Recognition
@@ -203,11 +228,16 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 本文提出的方法示意图如下所示，其中第一列为关键帧的原图，网络结构183和289输出的卷积特征，第二列为当前帧的原图，网络结构183和289输出的卷积特征，第三列为当前帧的光流估计和通过计算的传播的特征map，可以看出通过使用关键帧的卷及特征和光流的传播的特征map和当前帧直接在网络的输出几乎相同。
 
+<!--
 ![](./imgs/dff_result.png)
+-->
+
 
 本文提出的网络处理过程和每一帧的网络框架区别如下所示，其中每一帧网络per-frame network处理每一帧，并且每一帧都会输入特征提取网络提取特征，同时将提取的特征输入到识别任务中输出最后的任务结果，而本文提出的DFF深度特征光流网络DFF网络仅仅对关键帧提取特征，然后当前帧（非关键帧，即两个关键帧之间的frame）和关键帧输入到光流估计函数F中，将关键帧提取的特征和光流估计结果输入至传播函数propagation中，然后输入到输出task任务中得到当前帧的任务结果。
 
+<!--
 ![](./imgs/dff_illustration.png)
+-->
 
 
 ### 参考资料
@@ -255,7 +285,7 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 ![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/Screen_Shot_2018-07-12_23.08.31.png)
 
-PRU将两个连续的关键帧的检测结果作为输入，然后传播到参考帧中国年，并且通过细化输出到下一空间尺度。
+PRU将两个连续的关键帧的检测结果作为输入，然后传播到参考帧中，并且通过细化输出到下一空间尺度。
 
 ### 参考资料
 
@@ -267,6 +297,10 @@ PRU将两个连续的关键帧的检测结果作为输入，然后传播到参�
 # flow
 
 增加和video_obj并行的光流论文研究。
+
+## 相关资料
+
+- [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850) [pytorch-spynet代码](https://github.com/sniklaus/pytorch-spynet)
 
 ---
 ## FlowNet: Learning Optical Flow with Convolutional Networks

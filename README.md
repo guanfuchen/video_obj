@@ -4,6 +4,15 @@
 
 对相应的视频目标检测论文整理实现综述文档。
 
+## 视频目标检测的意义
+
+
+传统的基于图片的目标检测方法已经非常成熟，对于视频目标检测来说，如果视频流按帧一张一张使用图片的目标检测算法来处理会出现以下两类问题：
+- 因为视频流的图片信息具有时间和空间相关性，相邻帧之间的特征提取网络会输出有冗余的特征图信息，会造成没必要的计算浪费。
+- 图片的目标检测算法在目标物体运动模糊，拍摄焦距失调，物体部分遮挡，非刚性物体罕见变形姿态的情况下，很难获得较为准确的结果，而这些情况（如下图）在视频的拍摄中情况较为多见。
+
+> 上述意义引用自[Towards High Performance Video Object Detection论文笔记](https://zhuanlan.zhihu.com/p/37068429)，具体内容参考该网址。
+
 ---
 ## 数据集
 
@@ -249,6 +258,10 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 ---
 ## Flow-guided feature aggregation for video object detection
 
+| 会议／期刊 | 作者 | 论文 |
+| ---- | ---- | ---- |
+| ICCV 2017 | Xizhou Zhu，Yujie Wang，Jifeng Dai，Lu Yuan，Yichen Wei | Flow-guided feature aggregation for video object detection |
+
 和deep feature flow的思路相似，通过光流的方法增强视频目标检测，[相关代码](https://github.com/msracver/Flow-Guided-Feature-Aggregation)。FGFA基于光流的多帧特征聚合。
 
 ---
@@ -261,6 +274,11 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 本文和Flow-guided feature aggregation for video object detection以及DFF架构都是同一作者的三篇文章，可以追踪着一起看。
 
+### 参考资料
+
+- [光流在视频检测和分割的再应用](https://blog.csdn.net/u013010889/article/details/80072917) 对这篇论文的中文解读。
+- [Towards High Performance Video Object Detection论文笔记](https://zhuanlan.zhihu.com/p/37068429)
+
 ---
 ## Towards High Performance Video Object Detection for Mobiles
 
@@ -268,7 +286,6 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 ### 参考资料
 
-- [光流在视频检测和分割的再应用](https://blog.csdn.net/u013010889/article/details/80072917)
 - [Towards High Performance Video Object Detection for Mobiles论文笔记](https://zhuanlan.zhihu.com/p/37634009)
 
 ---
@@ -287,11 +304,11 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 
 PRU将两个连续的关键帧的检测结果作为输入，然后传播到参考帧中，并且通过细化输出到下一空间尺度。
 
+
 ### 参考资料
 
 - [Optimizing Video Object Detection via a Scale-Time Lattice](https://amds123.github.io/2018/04/16/Optimizing-Video-Object-Detection-via-a-Scale-Time-Lattice/) 中文摘要。
-
-
+- [When do you release the code](https://github.com/hellock/scale-time-lattice/issues/1) 相关代码仍然未上传。
 
 
 # flow

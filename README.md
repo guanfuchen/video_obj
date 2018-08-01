@@ -16,7 +16,9 @@
 ---
 ## 数据集
 
-### ILSVRC2015: Object detection from video (VID)
+### 通用视频目标检测数据集
+
+#### ILSVRC2015: Object detection from video (VID)
 ImageNet VID challenges，这是在kaggle上的关于ImageNet上基于视频的目标检测挑战，目的是为了识别和标记视频中的普通目标。
 
 该数据集文件如下
@@ -27,7 +29,7 @@ ImageNet VID challenges，这是在kaggle上的关于ImageNet上基于视频的�
   - ImageSet文件夹包含了定义了主要的检测任务的图像列表。例如，文件夹ILSVRC2015_VID_train_0000/ILSVRC2015_train_00025030表示一个视频，其中该文件夹中的000000.JPEG文件表示第一帧，并且000000.xml表示该帧的标注。
 
 
-### YouTube-Objects dataset v2.2
+#### YouTube-Objects dataset v2.2
 
 ![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/Screen_Shot_2018-07-11_16.35.20.png)
 
@@ -43,6 +45,8 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 ### YouTube-BoundingBoxes: A Large High-Precision Human-Annotated Data Set for Object Detection in Video
 
 该数据集中包含单个目标。
+
+### 人脸检测视频数据集
 
 ---
 ## 相关资料
@@ -74,11 +78,16 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - Slow Feature Analysis_ Unsupervised Learning of Invariances慢特征分析，主要基于连续的视频关键帧特征具有极大的相似性这个特点提取信息。
 - Deep Learning of Invariant Features via Simulated Fixations in Video
 - Slow and steady feature analysis: higher order temporal coherence in video
-- Seq-NMS for Video Object Detection将传统的基于still image的区域建议NMS方法扩展到视频序列的NMS方法。
+- Seq-NMS for Video Object Detection将传统的基于still image的区域建议NMS方法扩展到视频序列的NMS方法，**这部分模块较小，打算从这个小模块的增加来尝试提升视频目标检测的性能**。
 - The Recognition of Human Movement Using Temporal Templates，论文提出了Motion History Image（MHI）作为运动表示，该表示计算高效，对于基于光流的方法来说可以作为其替代来弥补光流计算量大的问题 TODO。
 - Detect to Track and Track to Detect
 - github上另外有收集视频检测相关的文章[Video-Detection](https://github.com/jiangzhengkai/Video-Detection)
 - [ImageAI : Video Object Detection, Tracking and Analysis](https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/VIDEO.md) ImageAI上关于视频目标检测的教程。
+
+---
+## 视频语义分割
+
+- [Fast and Accurate Online Video Object Segmentation via Tracking Parts](https://arxiv.org/abs/1806.02323) 通过跟踪部分进行快速和精确的在线视频目标分割，相关代码[FAVOS](https://github.com/JingchunCheng/FAVOS)。
 
 ---
 ## 目标检测
@@ -184,41 +193,12 @@ tubelet proposal networks系列。
 - [CuVideo - Object Detection in Videos with TubeLets and Multi Context Cues](https://www.youtube.com/watch?v=XuR-Kabh1AY&feature=youtu.be) workshop讲座。
 - [Kai Kang](http://kangk.ai/) 作者主页。
 
----
-## Optimizing Video Object Detection via a Scale-Time Lattice
-
-本文探索了使用一种新的方法，在规模时间内重新分配计算空间。
-
-具体来说，在自然视频中的帧中存在很强的连续性，这表明了另一种可选的减少计算成本的方法，即时序上传播计算。
-
-通常来说，基于视频的目标检测方法是一个多步骤的过程，先前研究的任务中，比如基于图像的目标检测，时序传播，稀疏到细致化的微调等等都是这个过程中的单一步骤。然而单一步骤的提升尽管被研究了很久，但是一个关键问题仍然悬而未决：“什么是最具成本效益地将它们结合起来的策略？”
-
-Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale-Time Lattice中有向连接的不同节点。 从这个统一的观点来看，可以很容易看出不同的步骤如何贡献以及如何计算成本分配。
-
-文中实验结果比较了常用的在VID数据集上实验的方法，其中包括DFF、TPN+LSTM、FGFA和D&T，以及本文提出的scale-time lattice方法，具体比较结果如下图所示：
-
-<!--
-![](./imgs/vid_dataset_solution_results.png)
--->
-
-另外不同于DFF使用光流来传播关键帧的稠密特征，本文主要使用MHI来编码运动信息来传播帧间运动特征，下图比较了在不同间隔的关键帧下的不同传播方法的精度，左图是整体精度比较，右图是基于不同的目标运动的检测精度比较，其中比较主要包括Interpolation、RGB差值和MHI这三种方法，另外从右图中可以看出使用MHI方法精度提升的主要目标位快速运动的目标。
-
-<!--
-![](./imgs/propagation_result.png)
--->
 
 ---
-## Detect to Track and Track to Detect
+## Object detection in videos with tubelet proposal networks
 
-相关代码[Detect-Track](https://github.com/feichtenhofer/Detect-Track)和[py-Detect-Track代码python](https://github.com/feichtenhofer/py-Detect-Track)
+参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
 
-文章指出：在视频中的对象检测和跟踪的情况下，最近的方法主要使用检测作为第一步，接着是后处理方法，诸如应用跟踪器以随时间传播检测分数。 “检测跟踪”范式的这种变化已经取得了令人瞩目的进展，但却受到帧级检测方法的支配。
-
-视频中的对象检测最近引起了人们的兴趣，尤其是在引入ImageNet视频对象检测挑战（VID）之后。 与ImageNet对象检测（DET）挑战不同，VID在图像序列中显示对象，并带来额外的挑战：（i）大小：视频提供的帧数（VID大约有130万图像，而DET大约有400K） COCO大约有100K），（ii）运动模糊：由于快速的相机或物体运动，（iii）质量：互联网视频剪辑的质量通常低于静态照片，（iv）部分遮挡：由于 物体/观察者定位，以及（v）姿势：在视频中经常看到非常规的物体到相机姿势。 在下图中，我们显示了来自VID数据集的示例图像。
-
-<!--
-![](./imgs/vid_samples.png)
--->
 
 ---
 ## Deep Feature Flow for Video Recognition
@@ -262,6 +242,8 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 | ---- | ---- | ---- |
 | ICCV 2017 | Xizhou Zhu，Yujie Wang，Jifeng Dai，Lu Yuan，Yichen Wei | Flow-guided feature aggregation for video object detection |
 
+代码配置见[./doc/fgfa_understanding.md]。
+
 和deep feature flow的思路相似，通过光流的方法增强视频目标检测，[相关代码](https://github.com/msracver/Flow-Guided-Feature-Aggregation)。FGFA基于光流的多帧特征聚合。
 
 ---
@@ -289,12 +271,27 @@ Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale
 - [Towards High Performance Video Object Detection for Mobiles论文笔记](https://zhuanlan.zhihu.com/p/37634009)
 
 ---
-## Object detection in videos with tubelet proposal networks
-
-参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
-
----
 ## Optimizing Video Object Detection via a Scale-Time Lattice
+
+本文探索了使用一种新的方法，在规模时间内重新分配计算空间。
+
+具体来说，在自然视频中的帧中存在很强的连续性，这表明了另一种可选的减少计算成本的方法，即时序上传播计算。
+
+通常来说，基于视频的目标检测方法是一个多步骤的过程，先前研究的任务中，比如基于图像的目标检测，时序传播，稀疏到细致化的微调等等都是这个过程中的单一步骤。然而单一步骤的提升尽管被研究了很久，但是一个关键问题仍然悬而未决：“什么是最具成本效益地将它们结合起来的策略？”
+
+Scale-Time Lattice是一个统一的形式，其中上面提到的步骤是Scale-Time Lattice中有向连接的不同节点。 从这个统一的观点来看，可以很容易看出不同的步骤如何贡献以及如何计算成本分配。
+
+文中实验结果比较了常用的在VID数据集上实验的方法，其中包括DFF、TPN+LSTM、FGFA和D&T，以及本文提出的scale-time lattice方法，具体比较结果如下图所示：
+
+<!--
+![](./imgs/vid_dataset_solution_results.png)
+-->
+
+另外不同于DFF使用光流来传播关键帧的稠密特征，本文主要使用MHI来编码运动信息来传播帧间运动特征，下图比较了在不同间隔的关键帧下的不同传播方法的精度，左图是整体精度比较，右图是基于不同的目标运动的检测精度比较，其中比较主要包括Interpolation、RGB差值和MHI这三种方法，另外从右图中可以看出使用MHI方法精度提升的主要目标位快速运动的目标。
+
+<!--
+![](./imgs/propagation_result.png)
+-->
 
 - [scale-time-lattice相关代码](https://github.com/hellock/scale-time-lattice)
 
@@ -309,6 +306,20 @@ PRU将两个连续的关键帧的检测结果作为输入，然后传播到参�
 
 - [Optimizing Video Object Detection via a Scale-Time Lattice](https://amds123.github.io/2018/04/16/Optimizing-Video-Object-Detection-via-a-Scale-Time-Lattice/) 中文摘要。
 - [When do you release the code](https://github.com/hellock/scale-time-lattice/issues/1) 相关代码仍然未上传。
+
+
+---
+## Detect to Track and Track to Detect
+
+相关代码[Detect-Track](https://github.com/feichtenhofer/Detect-Track)和[py-Detect-Track代码python](https://github.com/feichtenhofer/py-Detect-Track)
+
+文章指出：在视频中的对象检测和跟踪的情况下，最近的方法主要使用检测作为第一步，接着是后处理方法，诸如应用跟踪器以随时间传播检测分数。 “检测跟踪”范式的这种变化已经取得了令人瞩目的进展，但却受到帧级检测方法的支配。
+
+视频中的对象检测最近引起了人们的兴趣，尤其是在引入ImageNet视频对象检测挑战（VID）之后。 与ImageNet对象检测（DET）挑战不同，VID在图像序列中显示对象，并带来额外的挑战：（i）大小：视频提供的帧数（VID大约有130万图像，而DET大约有400K） COCO大约有100K），（ii）运动模糊：由于快速的相机或物体运动，（iii）质量：互联网视频剪辑的质量通常低于静态照片，（iv）部分遮挡：由于 物体/观察者定位，以及（v）姿势：在视频中经常看到非常规的物体到相机姿势。 在下图中，我们显示了来自VID数据集的示例图像。
+
+<!--
+![](./imgs/vid_samples.png)
+-->
 
 
 # flow

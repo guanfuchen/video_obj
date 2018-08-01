@@ -42,6 +42,11 @@ aggregated_conv_feat = aggregated_conv_feat + tiled_weight * warp_list[i]
 | dff_rfcn | 0.034s | **中** | **74.1** |
 | fgfa | 0.800s | **高** | **83.5** |
 
+
+#### 训练
+
+该训练需要下载**ILSVRC2015 DET**和**ILSVRC2015 VID**数据集。
+
 #### 下一步工作
 
 阅读相关代码，结合论文解析代码。

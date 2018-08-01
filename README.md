@@ -79,6 +79,7 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - Detect to Track and Track to Detect
 - github上另外有收集视频检测相关的文章[Video-Detection](https://github.com/jiangzhengkai/Video-Detection)
 - [ImageAI : Video Object Detection, Tracking and Analysis](https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/VIDEO.md) ImageAI上关于视频目标检测的教程。
+- On The Stability of Video Detection and Tracking，其中关注点在视屏检测和跟踪的稳定性方面。
 
 ---
 ## 目标检测
@@ -138,6 +139,13 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 
 
 每一个视频分割片段中最多只有一个目标被跟踪，但是同一个视频中能够有多个分割，也就是说youtube_id可能有多个分割，但是youtube_id和class_id组合就只有唯一的跟踪。
+
+---
+## Seq-NMS for Video Object Detection
+
+| 会议／期刊 | 作者 | 论文 |
+| ---- | ---- | ---- |
+| arXiv 2016 | KHan W, Khorrami P, Paine T L | Seq-NMS for Video Object Detection |
 
 ---
 ## Object Detection from Video Tubelets with Convolutional Neural Networks

@@ -2,6 +2,13 @@
 
 FlowNet: Learning Optical Flow with Convolutional Networks
 
+
+## 网络架构
+
+### FlowNetS
+
+![](../imgs/flownet_arch.png)
+
 ---
 ## 参考资料
 

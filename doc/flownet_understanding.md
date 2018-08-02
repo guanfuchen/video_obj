@@ -7,7 +7,7 @@ FlowNet: Learning Optical Flow with Convolutional Networks
 
 ### FlowNetS
 
-![](../imgs/flownet_arch.png)
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/flownet_arch.png)
 
 ---
 ## 参考资料

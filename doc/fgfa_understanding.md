@@ -44,6 +44,44 @@ aggregated_conv_feat = aggregated_conv_feat + tiled_weight * warp_list[i]
 | dff_rfcn | 0.034s | **中** | **74.1** |
 | fgfa | 0.800s | **高** | **83.5** |
 
+#### 不同的motion IOU检测结果
+
+将运动分为slow，medium，fast运动，不同的motion下分别检测mAP，来体现FGFA模型在fast运动目标检测任务上的精度提升较大。运动分类通过和邻近帧（前后10帧）相应目标实例的平均IOU标准分为slow，medium和fast运动，这里将这个评价标准定为motion IOU，motion IOU更低也就是目标运动更快，具体分类指标如下表所示。
+
+|  | motion IOU |
+| ---- | ---- |
+| slow | >0.9 |
+| medium | [0.7, 0.9] |
+| fast | <0.7 |
+
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/fgfa_motion_iou.png)
+
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/fgfa_motion_iou_ex.png)
+
+```
+===========================================
+eval_vid_detection :: accumulating: motion [0.0 1.0], area [0.0 0.0 100000.0 100000.0]
+===========================================
+eval_vid_detection :: accumulating: motion [0.0 0.7], area [0.0 0.0 100000.0 100000.0]
+===========================================
+eval_vid_detection :: accumulating: motion [0.7 0.9], area [0.0 0.0 100000.0 100000.0]
+===========================================
+eval_vid_detection :: accumulating: motion [0.9 1.0], area [0.0 0.0 100000.0 100000.0]
+=================================================
+motion [0.0 1.0], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.7711
+=================================================
+motion [0.0 0.7], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.5611
+=================================================
+motion [0.7 0.9], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.7567
+=================================================
+motion [0.9 1.0], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.8591
+```
+
+
 
 #### 训练
 

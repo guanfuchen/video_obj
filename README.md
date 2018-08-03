@@ -195,18 +195,13 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 
 tubelet proposal networks系列。
 
+参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
+
 ### 参考资料
 
 - [TPN代码](https://github.com/myfavouritekk/TPN)
 - [CuVideo - Object Detection in Videos with TubeLets and Multi Context Cues](https://www.youtube.com/watch?v=XuR-Kabh1AY&feature=youtu.be) workshop讲座。
 - [Kai Kang](http://kangk.ai/) 作者主页。
-
-
----
-## Object detection in videos with tubelet proposal networks
-
-参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
-
 
 ---
 ## Deep Feature Flow for Video Recognition

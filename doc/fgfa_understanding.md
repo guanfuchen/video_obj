@@ -93,7 +93,13 @@ Mean AP@0.5 = 0.8591
 
 #### 编译问题
 
-- ...
+通过实验发现只要是最新版本的mxnet都可以直接运行FGFA和DFF这两个模型，同时如下问题可能不存在了，如果遇到相似问题可参考如下链接。
+
+- TypeError: _update_params_on_kvstore()，参考[github issue](https://github.com/msracver/Deformable-ConvNets/issues/62)和[Lack a parameter in _update_params_on_kvstore() function](https://github.com/msracver/Deep-Feature-Flow/issues/29)，将Flow-Guided-Feature-Aggregation/fgfa_rfcn/core/module.py中的574行代码修改如下：
+```
+if self._update_on_kvstore:
+  _update_params_on_kvstore(self._exec_group.param_arrays, self._exec_group.grad_arrays, self._kvstore, self._param_names)
+```
 
 ### 代码阅读
 

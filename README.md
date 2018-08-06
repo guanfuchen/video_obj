@@ -4,6 +4,18 @@
 
 对相应的视频目标检测论文整理实现综述文档。
 
+知乎上有关该方向的讨论[视频中的目标检测与图像中的目标检测具体有什么区别？](https://www.zhihu.com/question/52185576)。
+
+> 简单来说，视频检测是比单张图片检测多了Temporal Context（时间上下文）的信息。不同方法想利用这些Context来解决的问题并不相同。一类方法是关注如何使用这部分信息来**加速Video Detection**。因为相邻帧之间存在大量冗余，如果可以通过一些廉价的办法来加速不损害性能，在实际应用中还是很有意义的。另一类方法是关注这部分信息可以有效**减轻单帧图片检测中由于运动模糊，物体面积过小导致的困难**，从而来提升性能。
+>1. CUHK: Xiaogang Wang 这面我了解到的有三篇文章，最开始 (TPAMI Short)是通过Motion的信息以及多类之间的Correlation来对单帧图像detector的输出进行后处理，算是在前面提到的Baseline方法上的小改进。后续的文章(CVPR 16)在这个基础上，引入了一个Temporal CNN对每一个Tubelet进行rescore。这样通过Temporal的信息来重新评估每个proposal的置信度。最近的工作(CVPR17)将Proposal生成这个步骤，也从静态图片拿到了时序上来做。除此之外，对于每个Tubelet的分类，也采取了流行的LSTM。
+>2. MSRA: Jifeng Dai 相对来讲，这面的工作更干净，思路更清晰一些。个人来说更喜欢。这面的两个工作其实思想类似，但是恰好对应于前文提到的加速和性能提升两个目的。其核心都在于通过快速计算Optical Flow来捕捉视频中的Motion信息，然后通过这个Flow的信息使用Bilinear Sampling对之前的Feature Map进行Warp（也就是通过Optical Flow来预测当前帧的Feature Map）。有了这样的信息之后，如果我们想加速，那么可以直接使用预测的Feature Map来输出结果；如果想得到更好的结果，可以将预测的Feature Map和当前帧计算出来的Feature Map融合起来一起输出结果。值得一提的是，后者也是目前唯一一个End to End的Video Detection方法。另外有一些零碎一些的工作，基本都是在后处理过程中，处理rescore detection的问题，例如Seq-NMS等等。
+> 作者：Naiyan Wang
+链接：https://www.zhihu.com/question/52185576/answer/155679253
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+**单帧不够，多帧来凑**
+
 ## 视频目标检测的意义
 
 
@@ -148,6 +160,16 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 
 
 每一个视频分割片段中最多只有一个目标被跟踪，但是同一个视频中能够有多个分割，也就是说youtube_id可能有多个分割，但是youtube_id和class_id组合就只有唯一的跟踪。
+
+
+---
+## 与RNN结合的方法
+
+- Video Object Detection with an Aligned Spatial-Temporal Memory
+- Context Matters: Refining Object Detection in Video with Recurrent Neural Networks
+- ...
+
+
 
 ---
 ## Seq-NMS for Video Object Detection
@@ -358,3 +380,8 @@ NVIDIA® Tesla® P100 GPU 加速器为现代数据中心释放强大的计算能
 ## 参考资料
 
 - [NVIDIA® TESLA® P100](https://www.nvidia.cn/object/tesla-p100-cn.html)
+
+---
+# 其他
+
+- On The Stability of Video Detection and Tracking，探讨了视频目标检测和跟踪的稳定性。

@@ -354,6 +354,7 @@ PRU将两个连续的关键帧的检测结果作为输入，然后传播到参�
 ## 相关资料
 
 - [Optical Flow Estimation using a Spatial Pyramid Network](https://arxiv.org/abs/1611.00850) [pytorch-spynet代码](https://github.com/sniklaus/pytorch-spynet)
+- PWC-Net: CNNs for Optical Flow Using Pyramid, Warping, and Cost Volume，[代码](https://github.com/NVlabs/PWC-Net)
 
 ---
 ## FlowNet: Learning Optical Flow with Convolutional Networks

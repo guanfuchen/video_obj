@@ -35,7 +35,7 @@ ImageNet VID challenges，这是在kaggle上的关于ImageNet上基于视频的�
 
 该数据集文件如下
 - imagenet_object_detection_video_train.tar.gz包含了训练集和校准集的图像数据和GT。
-- imagenet_object_detection_video_test.tar.gz包含了测试机的图像数据。
+- imagenet_object_detection_video_test.tar.gz包含了测试集的图像数据。
   - 其中图像标注格式都是基于PASCAL VOC数据集格式的XML文件（可以使用PASCAL开发工具套件来解析标注）。
   - 每一个视频都是以JPEG格式存储，代表不同帧。
   - ImageSet文件夹包含了定义了主要的检测任务的图像列表。例如，文件夹ILSVRC2015_VID_train_0000/ILSVRC2015_train_00025030表示一个视频，其中该文件夹中的000000.JPEG文件表示第一帧，并且000000.xml表示该帧的标注。
@@ -43,7 +43,9 @@ ImageNet VID challenges，这是在kaggle上的关于ImageNet上基于视频的�
 
 #### YouTube-Objects dataset v2.2
 
+<!--
 ![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/Screen_Shot_2018-07-11_16.35.20.png)
+-->
 
 YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Challenge的10个对象类别的名称。每个对象包含9到24个视频。每个视频的持续时间在30秒到3分钟之间变化。视频被弱标注，即我们确保每个视频包含相应类的至少一个对象。该数据集包括aeroplane、bird、boat、car、cat、cow、dog、horse、motorbike和train这10个类别，具体可在网页上查看[YouTube-Objects v2.3 Preview](YouTube-Objects v2.3 Preview)。
 

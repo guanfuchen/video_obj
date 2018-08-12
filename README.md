@@ -84,6 +84,9 @@ YouTube-Objects数据集由从YouTube收集的视频组成，查询PASCAL VOC Ch
 - github上另外有收集视频检测相关的文章[Video-Detection](https://github.com/jiangzhengkai/Video-Detection)
 - [ImageAI : Video Object Detection, Tracking and Analysis](https://github.com/OlafenwaMoses/ImageAI/blob/master/imageai/Detection/VIDEO.md) ImageAI上关于视频目标检测的教程。
 - On The Stability of Video Detection and Tracking，其中关注点在视屏检测和跟踪的稳定性方面。
+- Online Video Object Detection using Association LSTM
+- New Trends on Moving Object Detection in Video Images Captured by a moving Camera: A Survey相关领域的一个调研，通过一个运动的摄像头捕捉的视频图像来检测运动目标。
+- [2nd ImageNet and COCO Visual Recognition Challenges Joint Workshop](http://image-net.org/challenges/ilsvrc+coco2016) 2016视频目标检测研讨会。
 
 ---
 ## 视频语义分割
@@ -154,10 +157,12 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 
 | 会议／期刊 | 作者 | 论文 |
 | ---- | ---- | ---- |
-| arXiv 2016 | KHan W, Khorrami P, Paine T L | Seq-NMS for Video Object Detection |
+| arXiv: 1602.08465 | KHan W, Khorrami P, Paine T L | Seq-NMS for Video Object Detection |
 
 ---
 ## Object Detection from Video Tubelets with Convolutional Neural Networks
+
+tubelet v1
 
 | 会议／期刊 | 作者 | 论文 |
 | ---- | ---- | ---- |
@@ -174,6 +179,8 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 ---
 ## T-CNN: Tubelets with Convolutional Neural Networks for Object Detection from Videos
 
+tubelet v2
+
 | 会议／期刊 | 作者 | 论文 |
 | ---- | ---- | ---- |
 | arXiv preprint 2016 | Kang, Kai and Li, Hongsheng and Yan, Junjie and Zeng, Xingyu and Yang, Bin and Xiao, Tong and Zhang, Cong and Wang, Zhe and Wang, Ruohui and Wang, Xiaogang and Ouyang, Wanli | T-CNN: Tubelets with Convolutional Neural Networks for Object Detection from Videos |
@@ -189,6 +196,8 @@ AAB6lO-XiKE	241000	0	person	0	present	0.515	0.605	0.44833332	0.68666667
 ---
 ## Object detection in videos with tubelet proposal networks
 
+tubelet v3
+
 | 会议／期刊 | 作者 | 论文 |
 | ---- | ---- | ---- |
 | CVPR 2017 | Kang, Kai and Li, Hongsheng and Xiao, Tong and Ouyang, Wanli and Yan, Junjie and Liu, Xihui and Wang, Xiaogang | Object detection in videos with tubelet proposal networks |
@@ -202,14 +211,13 @@ tubelet proposal networks系列。
 - [Kai Kang](http://kangk.ai/) 作者主页。
 
 
----
-## Object detection in videos with tubelet proposal networks
-
 参考代码[TPN](https://github.com/myfavouritekk/TPN) 相较于RPN，生成了一系列基于视频管道的区域建议。
 
 
 ---
 ## Deep Feature Flow for Video Recognition
+
+dff v1
 
 参考代码[Deep-Feature-Flow](https://github.com/msracver/Deep-Feature-Flow)
 
@@ -246,6 +254,8 @@ tubelet proposal networks系列。
 ---
 ## Flow-guided feature aggregation for video object detection
 
+dff v2
+
 | 会议／期刊 | 作者 | 论文 |
 | ---- | ---- | ---- |
 | ICCV 2017 | Xizhou Zhu，Yujie Wang，Jifeng Dai，Lu Yuan，Yichen Wei | Flow-guided feature aggregation for video object detection |
@@ -254,8 +264,14 @@ tubelet proposal networks系列。
 
 和deep feature flow的思路相似，通过光流的方法增强视频目标检测，[相关代码](https://github.com/msracver/Flow-Guided-Feature-Aggregation)。FGFA基于光流的多帧特征聚合。
 
+### 参考资料
+
+- [视频demo](https://www.youtube.com/watch?v=R2h3DbTPvVg)
+
 ---
 ## Towards High Performance Video Object Detection
+
+dff v3
 
 | 会议／期刊 | 作者 | 论文 |
 | ---- | ---- | ---- |
@@ -271,6 +287,8 @@ tubelet proposal networks系列。
 
 ---
 ## Towards High Performance Video Object Detection for Mobiles
+
+dff v4
 
 这篇文章基本结构采用了和DFF这类基于光流传播相似的结构，但是探索了如何降低计算代价使得能够适用于移动设备中。作者[Jifeng Dai代季峰](http://www.jifengdai.org/)，这个系列的结构基本都是微软亚研院代季峰实验室的研究成果。
 

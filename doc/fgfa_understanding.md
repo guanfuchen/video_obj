@@ -34,13 +34,53 @@ aggregated_conv_feat = aggregated_conv_feat + tiled_weight * warp_list[i]
 
 #### 检测效果
 
-如下是dff_rfcn和rfcn的检测对比，发现虽然速度比rfcn单帧检测快2X左右，但是dff_rfcn（论文提出的方法）检测精度远远低于rfcn单帧检测，具体如下表所示，由于demo中没有标记数据，因此检测精度未给出量化指标，另外给出论文在VID校准集上的精度mAP。
+> 如下是dff_rfcn和rfcn的检测对比，发现虽然速度比rfcn单帧检测快2X左右，但是dff_rfcn（论文提出的方法）检测精度远远低于rfcn单帧检测，具体如下表所示，由于demo中没有标记数据，因此检测精度未给出量化指标，另外给出论文在VID校准集上的精度mAP。
+
+本文的FGFA架构则在检测精度上大大提升。
 
 |  | time/images | 检测精度 | mAP@0.5 |
 | ---- | ---- | ---- | ---- |
 | rfcn | **0.133s** | 低 | 73.0 |
 | dff_rfcn | 0.034s | **中** | **74.1** |
 | fgfa | 0.800s | **高** | **83.5** |
+
+#### 不同的motion IOU检测结果
+
+将运动分为slow，medium，fast运动，不同的motion下分别检测mAP，来体现FGFA模型在fast运动目标检测任务上的精度提升较大。运动分类通过和邻近帧（前后10帧）相应目标实例的平均IOU标准分为slow，medium和fast运动，这里将这个评价标准定为motion IOU，motion IOU更低也就是目标运动更快，具体分类指标如下表所示。
+
+|  | motion IOU |
+| ---- | ---- |
+| slow | >0.9 |
+| medium | [0.7, 0.9] |
+| fast | <0.7 |
+
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/fgfa_motion_iou.png)
+
+![](http://chenguanfuqq.gitee.io/tuquan2/img_2018_5/fgfa_motion_iou_ex.png)
+
+```
+===========================================
+eval_vid_detection :: accumulating: motion [0.0 1.0], area [0.0 0.0 100000.0 100000.0]
+===========================================
+eval_vid_detection :: accumulating: motion [0.0 0.7], area [0.0 0.0 100000.0 100000.0]
+===========================================
+eval_vid_detection :: accumulating: motion [0.7 0.9], area [0.0 0.0 100000.0 100000.0]
+===========================================
+eval_vid_detection :: accumulating: motion [0.9 1.0], area [0.0 0.0 100000.0 100000.0]
+=================================================
+motion [0.0 1.0], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.7711
+=================================================
+motion [0.0 0.7], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.5611
+=================================================
+motion [0.7 0.9], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.7567
+=================================================
+motion [0.9 1.0], area [0.0 0.0 100000.0 100000.0]
+Mean AP@0.5 = 0.8591
+```
+
 
 
 #### 训练
@@ -53,7 +93,13 @@ aggregated_conv_feat = aggregated_conv_feat + tiled_weight * warp_list[i]
 
 #### 编译问题
 
-- ...
+通过实验发现只要是最新版本的mxnet都可以直接运行FGFA和DFF这两个模型，同时如下问题可能不存在了，如果遇到相似问题可参考如下链接。
+
+- TypeError: _update_params_on_kvstore()，参考[github issue](https://github.com/msracver/Deformable-ConvNets/issues/62)和[Lack a parameter in _update_params_on_kvstore() function](https://github.com/msracver/Deep-Feature-Flow/issues/29)，将Flow-Guided-Feature-Aggregation/fgfa_rfcn/core/module.py中的574行代码修改如下：
+```
+if self._update_on_kvstore:
+  _update_params_on_kvstore(self._exec_group.param_arrays, self._exec_group.grad_arrays, self._kvstore, self._param_names)
+```
 
 ### 代码阅读
 
@@ -99,9 +145,28 @@ $$f^e=\epsilon(f)$$
 
 ### 光流网络Flow Network
 
-TODO增加光流网络相关细节。
+TODO增加光流网络相关细节，具体内容查看[flownet_understanding.md](./flownet_understanding.md)。
+
+### 检测网络Detection Network
+
+本文使用了state-of-the-art R-FCN目标检测网络，在1024维度的特征map后紧跟着RPN子网络和R-FCN子网络，RPN网络中使用了9个锚点（3种不同的尺度和3种不同的aspect ratios），每一张图像产生了300个区域建议。R-FCN中位置敏感的score maps分为7x7的groups。
+
+
+### 训练细节
+
+训练同时在ImageNet Det和ImageNet VID数据集上训练，分为两阶段训练。
+- 第一阶段在ImageNet DET数据集上训练特征网络Feature Network和检测网络Detection Network（使用ImageNet VID标注DET标注的30类目标），优化方法采用SGD，每一个mini-batch中使用一张图像进行训练，共使用4张显卡，训练周期为120K，前80K次迭代学习率为$10^{-3}$，后40K次迭代学习率为$10^{-4}$。
+- 第二阶段在ImageNet VID上训练整个FGFA模型，其中特征网络Feature Network和检测网络Detection Network从第一阶段学习到的权重初始化得到，在4张显卡上执行60K次迭代，前40K次迭代学习率为$10^{-3}$，后20K次迭代学习率为$10^{-4}$。训练和测试期间，输入到特征网络Feature Network中的较短边为600像素，输入到光流网络Flow Network中的较短边为300像素。
+
+### 实验相关
+
+#### Box-level技术组合
+
+该实验对于常用的video object detection的Box-level技术组合到FPFA架构中，比如MGP，Tubelet rescoring和Seq-NMS，实验发现这些方法对于ImageNet VID单帧检测的结果都有较大的提升，其中Seq-NMS方法提升最大，但是和FPFA架构组合后，MGP和Tubelet rescoring这两种方法几乎没有什么精度的提升，但是Seq-NMS仍然给了较大的提升结果，通过使用Aligned-Inception-ResNet作为特征网络的方法提升到了80.1%。
 
 ---
 ## 参考资料
 
 - [Flow-Guided-Feature-Aggregation](https://github.com/msracver/Flow-Guided-Feature-Aggregation)。
+- [proposal-inl.h](https://github.com/apache/incubator-mxnet/blob/master/src/operator/contrib/proposal-inl.h) MXNet中相应的Proposal网络层源码。
+- [Deformable-ConvNets](https://github.com/bharatsingh430/Deformable-ConvNets) 第三方的实现D-R-FCN+Soft-NMS。

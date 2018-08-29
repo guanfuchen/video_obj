@@ -354,6 +354,9 @@ PRU将两个连续的关键帧的检测结果作为输入，然后传播到参�
 
 - [Optimizing Video Object Detection via a Scale-Time Lattice](https://amds123.github.io/2018/04/16/Optimizing-Video-Object-Detection-via-a-Scale-Time-Lattice/) 中文摘要。
 - [When do you release the code](https://github.com/hellock/scale-time-lattice/issues/1) 相关代码仍然未上传。
+- [Optimizing Video Object Detection via a Scale-Time Lattice](https://www.youtube.com/watch?reload=9&v=NWvmQPbwZQQ) 项目demo视频。
+- [Optimizing Video Object Detection via a Scale-Time Lattice](http://mmlab.ie.cuhk.edu.hk/projects/ST-Lattice/) 项目主页。
+- [CVPR 2018 | 商汤科技论文详解：基于尺度-时间网格的视频中物体检测算法](https://zhuanlan.zhihu.com/p/38890190) 尺度时间网格知乎阅读。
 
 
 ---
